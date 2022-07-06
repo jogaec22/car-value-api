@@ -15,11 +15,11 @@ export class UsersService {
     }
 
     findOne(id: number) {
-        return this.repo.findOne({where: {id}});
+        return this.repo.findOneBy({id});
     }
 
     find(email: string) {
-        return this.repo.find({where: {email}});
+        return this.repo.findBy({email});
     }
 
     async update(id: number, attrs: Partial<User>) {

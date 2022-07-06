@@ -3,6 +3,12 @@ POST http://localhost:3000/auth/signup
 Content-Type: application/json
 
 {
-    "email": "asdf@asd.com",
+    "email": "jose2@asd.com",
     "password": "12345"
 }
+
+### Find a particular user with a given ID
+GET http://localhost:3000/auth/2
+
+### Find all users with a fiven email
+GET http://localhost:3000/auth?email=jose2@asd.com
