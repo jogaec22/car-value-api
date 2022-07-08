@@ -5,10 +5,13 @@ import { AuthService } from './auth.service';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserDto } from './dtos/user.dto';
+import { CurrentUserInterceptor } from './interceptors/current-user.interceptors';
+import { User } from './user.entity';
 import { UsersService } from './users.service';
 
 @Controller('auth')
 @Serialize(UserDto)
+@UseInterceptors(CurrentUserInterceptor)
 export class UsersController {
     constructor(
         private userService: UsersService,
@@ -21,7 +24,7 @@ export class UsersController {
     // }
 
     @Get('/whoami')
-    whoAmI(@CurrentUser() user: string){
+    whoAmI(@CurrentUser() user: User){
         return user
     }
     
@@ -44,8 +47,7 @@ export class UsersController {
         return user;
     }
 
-    @Get('/:id')    
-    @Serialize(UserDto)
+    @Get('/:id')
     async findUser(@Param('id') id: string){
         const user = await this.userService.findOne(parseInt(id));
         if(!user){
