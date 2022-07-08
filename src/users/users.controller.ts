@@ -1,5 +1,5 @@
 import { Body, ClassSerializerInterceptor, Controller, Delete, Get, NotFoundException, Param, Patch, Post, Query, UseInterceptors } from '@nestjs/common';
-import { SerializeInterceptor } from 'src/interceptors/serialize.interceptors';
+import { Serialize } from 'src/interceptors/serialize.interceptors';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserDto } from './dtos/user.dto';
@@ -17,7 +17,8 @@ export class UsersController {
     }
 
     @Get('/:id')
-    @UseInterceptors(new SerializeInterceptor(UserDto))
+    //@UseInterceptors(new SerializeInterceptor(UserDto))
+    @Serialize(UserDto)
     async findUser(@Param('id') id: string){
         console.log('handler is running');
         const user = await this.userService.findOne(parseInt(id));
