@@ -51,5 +51,13 @@ describe('AuthService', () => {
             expect(err).toBeInstanceOf(BadRequestException);
         }
     });
+
+    it('throws an error if singin is called with an unused email', async() => {        
+        try{
+            await service.signup('asdf@asdf.com', 'asdf');
+        }catch(err) {
+            expect(err).toBeInstanceOf(BadRequestException);
+        }
+    });
     
 });
